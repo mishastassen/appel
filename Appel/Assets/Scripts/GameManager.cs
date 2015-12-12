@@ -63,8 +63,9 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Time.time - timeLastSpawn > 1) {
 			timeLastSpawn = Time.time;
-			Instantiate (goodMammal,spawnGood.position,Quaternion.identity);
-			Instantiate (badMammal,spawnBad.position,Quaternion.identity);
+			Vector3 offset = new Vector3(0,0,Random.Range(-15,15));
+			Instantiate (goodMammal,spawnGood.position+offset,Quaternion.identity);
+			Instantiate (badMammal,spawnBad.position+offset,Quaternion.identity);
 		}
 	}
 

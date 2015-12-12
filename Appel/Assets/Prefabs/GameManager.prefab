@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de9d32bde4b3764a826bc38b634496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  badMammal: {fileID: 140662, guid: 1502e77aa4ef7aa4aba4a9424af173f5, type: 2}
+  badMammal: {fileID: 189744, guid: 12eebf222cb96704fb1a344b0b19f2c9, type: 2}
   badFish: {fileID: 163864, guid: a3a7fa19b19285e4c89c4a8351dc451a, type: 2}
   badBird: {fileID: 175926, guid: 5e290e4c4028b3a44ba83330a3e34778, type: 2}
   goodMammal: {fileID: 140662, guid: 511adf659a5576a43976ee40025e2a86, type: 2}
