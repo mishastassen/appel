@@ -19,6 +19,7 @@ public class BadController : MonoBehaviour {
 		if (target == null)
 			return;
 		Vector3 diff = target.transform.position - transform.position;
+		diff.y = 0;
 		rb.AddForce (speed*diff);
 		
 	}

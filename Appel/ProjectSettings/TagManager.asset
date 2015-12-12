@@ -4,8 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Bird
-  - Enemy
+  - GoodGuy
+  - GoodAxe
+  - GoodSpear
+  - BadGuy
+  - BadAxe
+  - BadSpear
   - Good
   - Bad
   layers:
