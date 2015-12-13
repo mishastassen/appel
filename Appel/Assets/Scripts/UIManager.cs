@@ -14,15 +14,16 @@ public class UIManager : MonoBehaviour {
 
 	// System.Random: 1010
 	void InitMatrix() {
-		matrix  = new Text[n+1,n+1];
-		for (int i=0; i<n+1; i++) {
-			for (int j=0; j<n+1; j++) {
+		matrix  = new Text[n+2,n+2];
+		for (int i=0; i<n+2; i++) {
+			for (int j=0; j<n+2; j++) {
 				matrix [i, j] = Instantiate<Text> (cell);
 				matrix [i, j].transform.SetParent (this.transform);
 				matrix [i, j].transform.position = new Vector3 (j * 32 + 256, (3-i) * 32, 0);
+				matrix[i,j].text = "";
+
 			}
 		}
-		matrix[0,0].text = "";
 	}
 
 	int getSum(int[] q) {
@@ -64,6 +65,10 @@ public class UIManager : MonoBehaviour {
 		for (int i=0; i<n; i++) {
 			matrix[i+1,0].text=""+GM.offense[i];
 			matrix[0,i+1].text=""+GM.defense[i];
+		}
+		for(int i=0;i<n;i++) {
+			matrix[i+1,n+1].text=""+GM.expOffense[i];
+			matrix[n+1,i+1].text=""+GM.expDefense[i];
 		}
 	}
 }

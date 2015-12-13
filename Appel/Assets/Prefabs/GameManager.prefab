@@ -47,12 +47,20 @@ MonoBehaviour:
   - {fileID: 132602, guid: 053d25b397d484043bd2bc52d4085b72, type: 2}
   - {fileID: 107390, guid: f19d69ab565bb0f4db87ff6a818a6293, type: 2}
   - {fileID: 174154, guid: e5db37a0d1d72fa42be02cb10deecf6e, type: 2}
-  spawnGood: {fileID: 0}
-  spawnBad: {fileID: 0}
+  spawnGood:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnBad:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   numKilledGood: 
   numKilledBad: 
   offense: 
   defense: 
+  expOffense: 
+  expDefense: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -12,6 +12,8 @@ public class BadController : MonoBehaviour {
 
 	public int col=-1;
 
+	public GameObject target = null;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -27,7 +29,8 @@ public class BadController : MonoBehaviour {
 	void Update () {
 		if (!alive)
 			return;
-		GameObject target = FindClosestEnemy ();
+		if (target == null)
+			target = FindRandomEnemy ();
 		if (target == null)
 			return;
 		Vector3 diff = target.transform.position - transform.position;
@@ -59,6 +62,14 @@ public class BadController : MonoBehaviour {
 		return closest;
 	}
 	
+	GameObject FindRandomEnemy() {
+		GameObject[] gos;
+		gos = GameObject.FindGameObjectsWithTag(targetTag);
+		if (gos.Length == 0)
+			return null;
+		return gos[Random.Range(0,gos.Length)];
+	}
+
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Good") {
 		}

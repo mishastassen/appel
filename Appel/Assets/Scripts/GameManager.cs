@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour {
 	public List<GameObject> offenseUnit = new List<GameObject>();
 	public List<GameObject> defenseUnit = new List<GameObject>();
 
-	public Transform spawnGood, spawnBad;
+	public List<Transform> spawnGood = new List<Transform>();
+	public List<Transform> spawnBad = new List<Transform>();
 
 	private float timeLastSpawn=0;
 	private int[] numSpawnedGood;
@@ -22,10 +23,15 @@ public class GameManager : MonoBehaviour {
 	public int[] offense;
 	public int[] defense;
 
+	public int[] expOffense;
+	public int[] expDefense;
+
+	private float lastBigComputerUpdate, lastMiniComputerUpdate;
+
 	private string spawnsGood = "", spawnsBad="";
 
-
-	int GetBestUnit(int[] current, int[] desired) {
+	// to have to right ratio for the units on battlefield as the players command
+	int GetNeededUnit(int[] current, int[] desired) {
 		int bestIndex = 0;
 		float lowestFactor = current [0] / (desired [0]+0.001f);
 		for (int i=1; i<numUnits; i++) {
@@ -66,6 +72,41 @@ public class GameManager : MonoBehaviour {
 		return res;
 	}
 	
+	void UpdateExpectations() {
+		for (int i=0; i<numUnits; i++) {
+			expOffense [i] = 0;
+			expDefense [i] = 0;
+		}
+		for (int i=0; i<numUnits; i++) {
+			for(int j=0;j<numUnits;j++) {
+				expOffense[i]+=defense[j]*mat.mat[i,j];
+				expDefense[j]+=offense[i]*mat.mat[i,j];
+			}
+		}
+	}
+	
+	
+	void UpdateComputerVector() {
+		if (Time.time > lastBigComputerUpdate + 4) {
+			if(Time.time > lastBigComputerUpdate + 6)
+				lastBigComputerUpdate = Time.time+2*Random.value;
+			if(Time.time > lastMiniComputerUpdate+0.1f) {
+				lastMiniComputerUpdate = Time.time;
+				int best = 0, worst = -1;
+				for (int i=0; i<numUnits; i++) {
+					if (expDefense [i] < expDefense [best])
+						best = i;
+					if (worst == -1 || (expDefense [i] > expDefense [worst] && defense [i] > 0))
+						worst = i;
+				}
+				if (defense [worst] > 0) {
+					defense [best]++;
+					defense [worst]--;
+				}
+			}
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		numSpawnedGood = new int[numUnits];
@@ -77,32 +118,39 @@ public class GameManager : MonoBehaviour {
 		mat.InitMatrix ();
 		offense = new int[numUnits];
 		defense = new int[numUnits];
+		expOffense = new int[numUnits];
+		expDefense = new int[numUnits];
 		for (int i=0; i<100; i++) {
 			offense [i % numUnits]++;
 			defense [i % numUnits]++;
 		}
+		UpdateExpectations ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+		UpdateExpectations ();
+		UpdateComputerVector ();
 		if (Time.time - timeLastSpawn > 0.2) {
 			timeLastSpawn = Time.time;
-			int goodIndex=GetBestUnit(NumAliveGood(),offense);
-			Instantiate(offenseUnit[goodIndex],spawnGood.position,Quaternion.identity);
+			int goodIndex=GetNeededUnit(NumAliveGood(),offense);
+			Instantiate(offenseUnit[goodIndex],spawnGood[goodIndex].position,Quaternion.identity);
 			numSpawnedGood[goodIndex]++;
 
-			int badIndex=GetBestUnit(NumAliveBad(),defense);
-			Instantiate (defenseUnit[badIndex],spawnBad.position,Quaternion.identity);
+			int badIndex=GetNeededUnit(NumAliveBad(),defense);
+			Instantiate (defenseUnit[badIndex],spawnBad[badIndex].position,Quaternion.identity);
 			numSpawnedBad[badIndex]++;
-			//Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
+			Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
 			spawnsGood+=""+goodIndex;
 			spawnsBad+=""+badIndex;
 		}
+		//*
 		if (spawnsGood.Length >= 20) {
 			Debug.Log (spawnsGood + " " + spawnsBad);
 			spawnsGood="";
 			spawnsBad="";
 		}
+		//*/
 		//Debug.Log ("Score: "+TotalKillsGood()+" - "+TotalKillsBad());
 		//Debug.Log ("Total spawned good: " + numSpawnedGood.Sum () + ", total spawned bad: " + numSpawnedBad.Sum ());
 		//Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));

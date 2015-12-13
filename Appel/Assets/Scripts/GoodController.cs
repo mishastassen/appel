@@ -35,12 +35,11 @@ public class GoodController : MonoBehaviour {
 		diff.y = 0;
 		if (rb.velocity.magnitude > maxSpeed)
 			rb.velocity = rb.velocity.normalized * maxSpeed;
-		transform.rotation = Quaternion.LookRotation(rb.velocity);
+		transform.rotation = Quaternion.LookRotation (rb.velocity);
 		transform.Rotate (0, 90, 0);
-		if(row==0)
+		if (row == 0)
 			transform.Rotate (0, 180, 0);
-		rb.AddForce (speed*diff);
-		
+		rb.AddForce (speed*diff);		
 	}
 
 	GameObject FindClosestEnemy() {
