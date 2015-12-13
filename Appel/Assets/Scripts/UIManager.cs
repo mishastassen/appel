@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log ("hoi");
 		String erbij = "qwer";
 		String eraf = "asdf";
 		// process keyboard input
