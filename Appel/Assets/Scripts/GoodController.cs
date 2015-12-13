@@ -73,7 +73,7 @@ public class GoodController : MonoBehaviour {
 			else if (other.gameObject.name.Contains ("Spear"))
 				col = 2;
 
-			int value = UIManager.mat[row,col];
+			int value = GM.mat.mat[row,col];
 			Debug.Log ("row: "+row+", col: "+col+", value: "+value); // other.GetComponent<BadController>().col
 			GameObject winner = other.gameObject;
 			GameObject looser = this.gameObject;

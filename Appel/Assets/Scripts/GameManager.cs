@@ -18,6 +18,25 @@ public class GameManager : MonoBehaviour {
 	public int[] numKilledGood;
 	public int[] numKilledBad;
 
+	public Matrix mat;
+	public int[] offense;
+	public int[] defense;
+
+	private string spawnsGood = "", spawnsBad="";
+
+
+	int GetBestUnit(int[] current, int[] desired) {
+		int bestIndex = 0;
+		float lowestFactor = current [0] / (desired [0]+0.001f);
+		for (int i=1; i<numUnits; i++) {
+			if(lowestFactor > current [i] / (desired [i]+0.001f)) {
+				bestIndex=i;
+				lowestFactor = current [i] / (desired [i]+1e-6f);
+			}
+		}
+		return bestIndex;
+	}
+
 	public int[] NumAliveGood() {
 		int[] res = new int[numUnits];
 		for (int i=0; i<numUnits; i++)
@@ -53,28 +72,40 @@ public class GameManager : MonoBehaviour {
 		numSpawnedBad = new int[numUnits];
 		numKilledGood = new int[numUnits];
 		numKilledBad = new int[numUnits];
+
+		mat = new Matrix (numUnits);
+		mat.InitMatrix ();
+		offense = new int[numUnits];
+		defense = new int[numUnits];
+		for (int i=0; i<100; i++) {
+			offense [i % numUnits]++;
+			defense [i % numUnits]++;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		int[] offense = UIManager.offense;
 		if (Time.time - timeLastSpawn > 0.2) {
 			timeLastSpawn = Time.time;
-			Vector3 offset = new Vector3(0,0,Random.Range(-15,15));
-			for(int i=0;i<offense.Length;i++) {
-				if(100*Random.value<offense[i]) {
-					Instantiate(offenseUnit[i],spawnGood.position+offset,Quaternion.identity);
-					numSpawnedGood[i]++;
-				}
-			}
+			int goodIndex=GetBestUnit(NumAliveGood(),offense);
+			Instantiate(offenseUnit[goodIndex],spawnGood.position,Quaternion.identity);
+			numSpawnedGood[goodIndex]++;
 
-			int badIndex=Random.Range (0,numUnits);
-			Instantiate (defenseUnit[badIndex],spawnBad.position+offset,Quaternion.identity);
+			int badIndex=GetBestUnit(NumAliveBad(),defense);
+			Instantiate (defenseUnit[badIndex],spawnBad.position,Quaternion.identity);
 			numSpawnedBad[badIndex]++;
+			//Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
+			spawnsGood+=""+goodIndex;
+			spawnsBad+=""+badIndex;
 		}
-		Debug.Log ("Score: "+TotalKillsGood()+" - "+TotalKillsBad());
-		Debug.Log ("Total spawned good: " + numSpawnedGood.Sum () + ", total spawned bad: " + numSpawnedBad.Sum ());
-		Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));
+		if (spawnsGood.Length >= 20) {
+			Debug.Log (spawnsGood + " " + spawnsBad);
+			spawnsGood="";
+			spawnsBad="";
+		}
+		//Debug.Log ("Score: "+TotalKillsGood()+" - "+TotalKillsBad());
+		//Debug.Log ("Total spawned good: " + numSpawnedGood.Sum () + ", total spawned bad: " + numSpawnedBad.Sum ());
+		//Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));
 	}
 
 }

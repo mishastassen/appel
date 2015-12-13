@@ -39,14 +39,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de9d32bde4b3764a826bc38b634496a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  badMammal: {fileID: 189744, guid: 12eebf222cb96704fb1a344b0b19f2c9, type: 2}
-  badFish: {fileID: 163864, guid: a3a7fa19b19285e4c89c4a8351dc451a, type: 2}
-  badBird: {fileID: 175926, guid: 5e290e4c4028b3a44ba83330a3e34778, type: 2}
-  goodMammal: {fileID: 140662, guid: 511adf659a5576a43976ee40025e2a86, type: 2}
-  goodFish: {fileID: 163864, guid: 241367130c8a28d4396e1e6eee372f92, type: 2}
-  goodBird: {fileID: 175926, guid: 866fd1fe5e2f85a4f9408de0ad96b3cb, type: 2}
+  offenseUnit:
+  - {fileID: 147460, guid: c6baaabd3eec64a489918bd78ba85928, type: 2}
+  - {fileID: 173852, guid: 14ddd34254d4fd047a3bf276603d9cb7, type: 2}
+  - {fileID: 157926, guid: 22b90af117205874493b05afb7c8fc7e, type: 2}
+  defenseUnit:
+  - {fileID: 132602, guid: 053d25b397d484043bd2bc52d4085b72, type: 2}
+  - {fileID: 107390, guid: f19d69ab565bb0f4db87ff6a818a6293, type: 2}
+  - {fileID: 174154, guid: e5db37a0d1d72fa42be02cb10deecf6e, type: 2}
   spawnGood: {fileID: 0}
   spawnBad: {fileID: 0}
+  numKilledGood: 
+  numKilledBad: 
+  offense: 
+  defense: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
