@@ -56,6 +56,13 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetKeyDown ("p")) {
+			if(Time.timeScale==1)
+				Time.timeScale=0;
+			else
+				Time.timeScale=1;
+		}
+
 		// update whole table
 		for (int i=0; i<n; i++) {
 			for (int j=0; j<n; j++) {
