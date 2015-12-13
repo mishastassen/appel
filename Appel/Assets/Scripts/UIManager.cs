@@ -33,6 +33,15 @@ public class UIManager : MonoBehaviour {
 		return res;
 	}
 
+	private string MakeString(int a) {
+		String res = "";
+		if (a < 0) {
+			a*=-1;
+			res+="-";
+		}
+		return res + (a / 100) + "." + ((a / 10) % 10);// + (a % 10);
+	}
+
 	// Use this for initialization
 	void Start () {
 		n = 3;
@@ -57,10 +66,10 @@ public class UIManager : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown ("p")) {
-			if(Time.timeScale==1)
-				Time.timeScale=0;
+			if(Time.timeScale==1.0f)
+				Time.timeScale=0f;
 			else
-				Time.timeScale=1;
+				Time.timeScale=1.0f;
 		}
 
 		// update whole table
@@ -70,12 +79,12 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 		for (int i=0; i<n; i++) {
-			matrix[i+1,0].text=""+GM.offense[i];
-			matrix[0,i+1].text=""+GM.defense[i];
+			matrix[i+1,0].text=MakeString(GM.offense[i]);
+			matrix[0,i+1].text=MakeString(GM.defense[i]);
 		}
 		for(int i=0;i<n;i++) {
-			matrix[i+1,n+1].text=""+GM.expOffense[i];
-			matrix[n+1,i+1].text=""+GM.expDefense[i];
+			matrix[i+1,n+1].text=MakeString(GM.expOffense[i]);
+			matrix[n+1,i+1].text=MakeString(GM.expDefense[i]);
 		}
 	}
 }
