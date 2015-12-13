@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour {
 	private Text[,] matrix;
 	private int n;
 	private GameManager GM;
-
+	
 
 	// System.Random: 1010
 	void InitMatrix() {
@@ -19,7 +19,8 @@ public class UIManager : MonoBehaviour {
 			for (int j=0; j<n+2; j++) {
 				matrix [i, j] = Instantiate<Text> (cell);
 				matrix [i, j].transform.SetParent (this.transform);
-				matrix [i, j].transform.position = new Vector3 (j * 32 + 256, (3-i) * 32, 0);
+				matrix [i, j].transform.position = new Vector3 (j * 40+400, (3-i) * 40+40, 0);
+				matrix[i,j].color = Color.white;
 				matrix[i,j].text = "";
 
 			}
