@@ -8,6 +8,7 @@ public class GoodController : MonoBehaviour {
 	public AudioClip testsound;
 	private int randomClip;
 	AudioSource audio;
+	ParticleSystem party;
 
 	public float speed = 6, maxSpeed=8;
 
@@ -98,6 +99,12 @@ public class GoodController : MonoBehaviour {
 			if(this.gameObject==looser) {
 				alive=false;
 				GM.numKilledGood[row]++;
+
+				// Add juice
+
+				//Instantiate(GetComponent<ParticleSystem>(), transform.position, transform.rotation);
+				GetComponent<ParticleSystem>().Play();
+				Debug.Log (party.transform.position);
 
 				randomClip = Random.Range (0, soundarray.Length);
 				audio.PlayOneShot (soundarray[randomClip], 1.0F);
