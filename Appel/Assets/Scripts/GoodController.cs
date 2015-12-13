@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(AudioSource))]
 
 public class GoodController : MonoBehaviour {
+	//test:
+	public AudioClip[] soundarray;
+	public AudioClip testsound;
+	private int randomClip;
+	AudioSource audio;
 
 	public float speed = 6, maxSpeed=8;
 
@@ -22,6 +28,8 @@ public class GoodController : MonoBehaviour {
 			row = 1;
 		else if (this.gameObject.name.Contains ("Spear"))
 			row = 2;
+
+		audio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -60,6 +68,8 @@ public class GoodController : MonoBehaviour {
 	}
 		
 	void OnTriggerEnter(Collider other) {
+
+
 		if (other.tag == "Bad") {
 			if (!alive || !other.GetComponent<BadController>().alive)
 				return;
@@ -88,15 +98,29 @@ public class GoodController : MonoBehaviour {
 			if(this.gameObject==looser) {
 				alive=false;
 				GM.numKilledGood[row]++;
+
+				randomClip = Random.Range (0, soundarray.Length);
+				audio.PlayOneShot (soundarray[randomClip], 1.0F);
+				Debug.Log ("randomClip value: " + randomClip);
+				// ??? Debug.Log("Array index: " + Array.IndexOf(soundarray, randomClip));
 			}
 			else {
 				looser.GetComponent<BadController>().alive = false;
 				GM.numKilledBad[col]++;
 			}
+
 			Destroy(looser.gameObject,1);
 
 		}
-
+		/*
+		public playRandomSound(){
+			if (audio.isPlaying) return;
+			int soundtoplay = floor(Random(4));
+			switch(soundtoplay){
+			case 1: Audio.PlayOneShot("hueh1"); break;
+			case 2: Audio.PlayOneShot("hueh2"); break;
+			default: Audio.PlayOneShot("hueh3"); break; 
+			*/
 	}
-
+		
 }
