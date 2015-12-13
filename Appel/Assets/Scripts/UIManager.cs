@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour {
 		for (int i=0; i<n+2; i++) {
 			for (int j=0; j<n+2; j++) {
 				matrix [i, j] = Instantiate<Text> (cell);
-				matrix [i, j].transform.SetParent (this.transform);
-				matrix [i, j].transform.position = new Vector3 (j * 40+400, (3-i) * 40+40, 0);
+				matrix [i, j].transform.SetParent(this.transform);//GetComponentInChildren<Image>().rectTransform); //(this.transform);
+				matrix[i,j].rectTransform.localScale = new Vector3(1,1,1);// = GameObject.Find ("Dummy").rectTransform.localScale;
+				matrix [i, j].transform.position = new Vector3 (j * 40+300, (3-i) * 40, 0);
 				matrix[i,j].color = Color.white;
 				matrix[i,j].text = "";
 

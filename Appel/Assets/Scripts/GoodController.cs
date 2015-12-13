@@ -103,18 +103,18 @@ public class GoodController : MonoBehaviour {
 				// Add juice
 
 				//Instantiate(GetComponent<ParticleSystem>(), transform.position, transform.rotation);
-				GetComponent<ParticleSystem>().Play();
-				Debug.Log (party.transform.position);
+				//Debug.Log (party.transform.position);
 
-				randomClip = Random.Range (0, soundarray.Length);
-				audio.PlayOneShot (soundarray[randomClip], 1.0F);
-				Debug.Log ("randomClip value: " + randomClip);
-				// ??? Debug.Log("Array index: " + Array.IndexOf(soundarray, randomClip));
 			}
 			else {
 				looser.GetComponent<BadController>().alive = false;
 				GM.numKilledBad[col]++;
 			}
+			GetComponent<ParticleSystem>().Play();
+			randomClip = Random.Range (0, soundarray.Length);
+			audio.PlayOneShot (soundarray[randomClip], 1.0F);
+			//Debug.Log ("randomClip value: " + randomClip);
+			// ??? Debug.Log("Array index: " + Array.IndexOf(soundarray, randomClip));
 
 			Destroy(looser.gameObject,1);
 
