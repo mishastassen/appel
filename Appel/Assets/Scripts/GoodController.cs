@@ -10,9 +10,12 @@ public class GoodController : MonoBehaviour {
 	public int row=-1;
 	public bool alive = true;
 
+	private GameManager GM;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		GM = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 		if (this.gameObject.name.Contains ("Guy"))
 			row = 0;
 		else if (this.gameObject.name.Contains ("Axe"))
@@ -61,7 +64,6 @@ public class GoodController : MonoBehaviour {
 		if (other.tag == "Bad") {
 			if (!alive || !other.GetComponent<BadController>().alive)
 				return;
-			Debug.Log ("Hit");
 
 			int col=-1;
 			if (other.gameObject.name.Contains ("Guy"))
@@ -84,10 +86,14 @@ public class GoodController : MonoBehaviour {
 			rb2.constraints = RigidbodyConstraints.None;
 			rb2.AddForce (200*Vector3.up);
 			rb2.AddTorque(new Vector3(Random.Range(25,40),Random.Range(25,40),Random.Range(25,40)));
-			if(this.gameObject==looser)
+			if(this.gameObject==looser) {
 				alive=false;
-			else
+				GM.numKilledBad[col]++;
+			}
+			else {
 				looser.GetComponent<BadController>().alive = false;
+				GM.numKilledGood[row]++;
+			}
 			Destroy(looser.gameObject,1);
 
 		}

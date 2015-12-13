@@ -61,7 +61,6 @@ public class BadController : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Good") {
-			Debug.Log ("Got hit");
 		}
 	}
 	
