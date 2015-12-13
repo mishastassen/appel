@@ -88,11 +88,11 @@ public class GoodController : MonoBehaviour {
 			rb2.AddTorque(new Vector3(Random.Range(25,40),Random.Range(25,40),Random.Range(25,40)));
 			if(this.gameObject==looser) {
 				alive=false;
-				GM.numKilledBad[col]++;
+				GM.numKilledGood[row]++;
 			}
 			else {
 				looser.GetComponent<BadController>().alive = false;
-				GM.numKilledGood[row]++;
+				GM.numKilledBad[col]++;
 			}
 			Destroy(looser.gameObject,1);
 
