@@ -3,23 +3,39 @@ using System.Collections;
 
 public class GoodController : MonoBehaviour {
 
-	public float speed = 5;
+	public float speed = 6, maxSpeed=8;
 
 	private Rigidbody rb;
 	private string targetTag = "Bad";
+	public int row=-1;
+	public bool alive = true;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		if (this.gameObject.name.Contains ("Guy"))
+			row = 0;
+		else if (this.gameObject.name.Contains ("Axe"))
+			row = 1;
+		else if (this.gameObject.name.Contains ("Spear"))
+			row = 2;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (!alive)
+			return;
 		GameObject target = FindClosestEnemy ();
 		if (target == null)
 			return;
 		Vector3 diff = target.transform.position - transform.position;
 		diff.y = 0;
+		if (rb.velocity.magnitude > maxSpeed)
+			rb.velocity = rb.velocity.normalized * maxSpeed;
+		transform.rotation = Quaternion.LookRotation(rb.velocity);
+		transform.Rotate (0, 90, 0);
+		if(row==0)
+			transform.Rotate (0, 180, 0);
 		rb.AddForce (speed*diff);
 		
 	}
@@ -43,8 +59,39 @@ public class GoodController : MonoBehaviour {
 		
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Bad") {
+			if (!alive || !other.GetComponent<BadController>().alive)
+				return;
 			Debug.Log ("Hit");
+
+			int col=-1;
+			if (other.gameObject.name.Contains ("Guy"))
+				col = 0;
+			else if (other.gameObject.name.Contains ("Axe"))
+				col = 1;
+			else if (other.gameObject.name.Contains ("Spear"))
+				col = 2;
+
+			int value = UIManager.mat[row,col];
+			Debug.Log ("row: "+row+", col: "+col+", value: "+value); // other.GetComponent<BadController>().col
+			GameObject winner = other.gameObject;
+			GameObject looser = this.gameObject;
+			if(Random.Range(-5,6)<value) {
+				winner = this.gameObject;
+				looser = other.gameObject;
+			}
+
+			Rigidbody rb2 = looser.GetComponent<Rigidbody>();
+			rb2.constraints = RigidbodyConstraints.None;
+			rb2.AddForce (200*Vector3.up);
+			rb2.AddTorque(new Vector3(Random.Range(25,40),Random.Range(25,40),Random.Range(25,40)));
+			if(this.gameObject==looser)
+				alive=false;
+			else
+				looser.GetComponent<BadController>().alive = false;
+			Destroy(looser.gameObject,1);
+
 		}
+
 	}
 
 }

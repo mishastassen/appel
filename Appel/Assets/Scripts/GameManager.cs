@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		int[] offense = UIManager.offense;
-		if (Time.time - timeLastSpawn > 1) {
+		if (Time.time - timeLastSpawn > 0.2) {
 			timeLastSpawn = Time.time;
 			Vector3 offset = new Vector3(0,0,Random.Range(-15,15));
 			for(int i=0;i<offense.Length;i++)

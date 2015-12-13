@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour {
 
 	public Text cell;
 	public string str;
-	private int[,] mat;
+	public static int[,] mat;
 	public static int[] offense;
 	private int[] defense;
 	private Text[,] matrix;
@@ -80,7 +80,6 @@ public class UIManager : MonoBehaviour {
 	void Update () {
 		String erbij = "qwer";
 		String eraf = "asdf";
-		Debug.Log ("n: " + n);
 		for(int i=0;i<n;i++) {
 
 			if (Input.GetKeyDown (""+erbij[i]) && getSum (offense) < 100) {
