@@ -44,9 +44,9 @@ MonoBehaviour:
   - {fileID: 173852, guid: 14ddd34254d4fd047a3bf276603d9cb7, type: 2}
   - {fileID: 157926, guid: 22b90af117205874493b05afb7c8fc7e, type: 2}
   defenseUnit:
-  - {fileID: 132602, guid: 053d25b397d484043bd2bc52d4085b72, type: 2}
-  - {fileID: 107390, guid: f19d69ab565bb0f4db87ff6a818a6293, type: 2}
-  - {fileID: 174154, guid: e5db37a0d1d72fa42be02cb10deecf6e, type: 2}
+  - {fileID: 183286, guid: 0d1fe0646d6acc34591aa43ee9690b40, type: 2}
+  - {fileID: 116700, guid: 6cc024decad5ab445bddfc15c528d9ce, type: 2}
+  - {fileID: 188974, guid: 36b9cc847fef554409899e98522ac772, type: 2}
   spawnGood:
   - {fileID: 0}
   - {fileID: 0}

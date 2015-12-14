@@ -76,15 +76,16 @@ public class GoodController : MonoBehaviour {
 				return;
 
 			int col=-1;
-			if (other.gameObject.name.Contains ("Guy"))
+			if (other.gameObject.name.Contains ("Fist"))
 				col = 0;
 			else if (other.gameObject.name.Contains ("Axe"))
 				col = 1;
 			else if (other.gameObject.name.Contains ("Spear"))
 				col = 2;
 
+			if(row>2||col>2||row<0||col<0)
+				Debug.Log ("row: "+row+", col: "+col); // other.GetComponent<BadController>().col
 			int value = GM.mat.mat[row,col];
-			Debug.Log ("row: "+row+", col: "+col+", value: "+value); // other.GetComponent<BadController>().col
 			GameObject winner = other.gameObject;
 			GameObject looser = this.gameObject;
 			if(Random.Range(-5,6)<value) {

@@ -17,7 +17,7 @@ public class BadController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		if (this.gameObject.name.Contains ("Guy"))
+		if (this.gameObject.name.Contains ("Fist"))
 			col = 0;
 		else if (this.gameObject.name.Contains ("Axe"))
 			col = 1;
