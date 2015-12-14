@@ -15,7 +15,6 @@ public class ButtonScript : MonoBehaviour {
    
     public void GoBack()
     {
-
         Application.LoadLevel(0);
         Debug.Log("Go back");
     }
