@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	private int maxCountUnits = 800;
 	private int criticalMinimum = 10;
 	private int criticalDifference = 100;
+	private bool gameDone;
 
 	public List<GameObject> offenseUnit = new List<GameObject>();
 	public List<GameObject> defenseUnit = new List<GameObject>();
@@ -132,10 +133,23 @@ public class GameManager : MonoBehaviour {
 			defense [i % numUnits]++;
 		}
 		UpdateExpectations ();
+		gameDone = false;
+	}
+
+	void ShowGameOver() {
+		gameDone = true;
+		Application.LoadLevel (3);
+	}
+
+	void ShowVictory() {
+		gameDone = true;
+		GameInfo.levelNumber++;
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (gameDone)
+			return;
 		UpdateExpectations ();
 		UpdateComputerVector ();
 		if((NumAliveGood ().Sum () > 10 || NumAliveBad ().Sum () <50)&&(NumAliveBad ().Sum () > 10 || NumAliveGood ().Sum () <50))
@@ -153,11 +167,17 @@ public class GameManager : MonoBehaviour {
 				Instantiate (defenseUnit[badIndex],spawnBad[badIndex].position,Quaternion.identity);
 				numSpawnedBad[badIndex]++;
 			}
-			Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
-			spawnsGood+=""+goodIndex;
-			spawnsBad+=""+badIndex;
+			//Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
+			//spawnsGood+=""+goodIndex;
+			//spawnsBad+=""+badIndex;
 		}
-		//*
+
+		if ((NumAliveGood ().Sum () == 0 && NumAliveBad ().Sum () > 10))
+			ShowGameOver ();
+		if ((NumAliveBad ().Sum () == 0 && NumAliveGood ().Sum () > 10))
+			ShowVictory ();
+
+		/*
 		if (spawnsGood.Length >= 20) {
 			Debug.Log (spawnsGood + " " + spawnsBad);
 			spawnsGood="";
@@ -166,7 +186,7 @@ public class GameManager : MonoBehaviour {
 		//*/
 		//Debug.Log ("Score: "+TotalKillsGood()+" - "+TotalKillsBad());
 		//Debug.Log ("Total spawned good: " + numSpawnedGood.Sum () + ", total spawned bad: " + numSpawnedBad.Sum ());
-		Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));
+		//Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));
 	}
 
 }
