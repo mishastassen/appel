@@ -90,6 +90,11 @@ public class UIManager : MonoBehaviour {
 		for (int i=0; i<n; i++) {
 			for (int j=0; j<n; j++) {
 				matrix [i+1, j+1].text = "" + GM.mat.mat [i, j];
+
+				float ratio = (GM.mat.mat [i, j]+5.01f)/10.1f; // anders misschien erbuiten
+				if(ratio<0.0f||ratio>1.0f)
+					Debug.Log ("ratio: "+ratio);
+				matrix[i+1,j+1].color = new Vector4(1-ratio,ratio,0,1); 
 			}
 		}
 		for (int i=0; i<n; i++) {
@@ -99,6 +104,15 @@ public class UIManager : MonoBehaviour {
 		for(int i=0;i<n;i++) {
 			matrix[i+1,n+1].text=MakeString(GM.expOffense[i]);
 			matrix[n+1,i+1].text=MakeString(GM.expDefense[i]);
+			float ratio = (GM.mat.mat [i, n-1]/100.0f+5.01f)/10.1f; // anders misschien erbuiten
+			if(ratio<0.0f||ratio>1.0f)
+				Debug.Log ("ratio: "+ratio);
+			matrix[i+1,n+1].color = new Vector4(1-ratio,ratio,0,1); 
+
+			ratio = (GM.mat.mat [n-1, i]/100.0f+5.01f)/10.1f; // anders misschien erbuiten
+			if(ratio<0.0f||ratio>1.0f)
+				Debug.Log ("ratio: "+ratio);
+			matrix[n+1,i+1].color = new Vector4(1-ratio,ratio,0,1); 
 		}
 	}
 }
