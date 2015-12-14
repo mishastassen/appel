@@ -6,6 +6,9 @@ using System.Linq;
 public class GameManager : MonoBehaviour {
 
 	private int numUnits=3;
+	private int maxCountUnits = 800;
+	private int criticalMinimum = 10;
+	private int criticalDifference = 100;
 
 	public List<GameObject> offenseUnit = new List<GameObject>();
 	public List<GameObject> defenseUnit = new List<GameObject>();
@@ -71,6 +74,10 @@ public class GameManager : MonoBehaviour {
 			res+=arr[i]+(i+1<arr.Length?", ":"]");
 		return res;
 	}
+
+	bool IsEnoughRoomOnBattleField() {
+		return NumAliveGood().Sum () + NumAliveBad ().Sum () < maxCountUnits;
+	}
 	
 	void UpdateExpectations() {
 		for (int i=0; i<numUnits; i++) {
@@ -131,15 +138,21 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		UpdateExpectations ();
 		UpdateComputerVector ();
-		if (Time.time - timeLastSpawn > 0.2) {
+		if((NumAliveGood ().Sum () > 10 || NumAliveBad ().Sum () <50)&&(NumAliveBad ().Sum () > 10 || NumAliveGood ().Sum () <50))
+		if (Time.time - timeLastSpawn > 0.2 && IsEnoughRoomOnBattleField()) {
 			timeLastSpawn = Time.time;
-			int goodIndex=GetNeededUnit(NumAliveGood(),offense);
-			Instantiate(offenseUnit[goodIndex],spawnGood[goodIndex].position,Quaternion.identity);
-			numSpawnedGood[goodIndex]++;
+			int goodIndex = -1, badIndex = -1;
+			if(NumAliveGood ().Sum () > 10 || NumAliveBad ().Sum () <50) {
+				goodIndex=GetNeededUnit(NumAliveGood(),offense);
+				Instantiate(offenseUnit[goodIndex],spawnGood[goodIndex].position,Quaternion.identity);
+				numSpawnedGood[goodIndex]++;
+			}
 
-			int badIndex=GetNeededUnit(NumAliveBad(),defense);
-			Instantiate (defenseUnit[badIndex],spawnBad[badIndex].position,Quaternion.identity);
-			numSpawnedBad[badIndex]++;
+			if(NumAliveBad ().Sum () > 10 || NumAliveGood ().Sum () <50) {
+				badIndex=GetNeededUnit(NumAliveBad(),defense);
+				Instantiate (defenseUnit[badIndex],spawnBad[badIndex].position,Quaternion.identity);
+				numSpawnedBad[badIndex]++;
+			}
 			Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
 			spawnsGood+=""+goodIndex;
 			spawnsBad+=""+badIndex;
@@ -153,7 +166,7 @@ public class GameManager : MonoBehaviour {
 		//*/
 		//Debug.Log ("Score: "+TotalKillsGood()+" - "+TotalKillsBad());
 		//Debug.Log ("Total spawned good: " + numSpawnedGood.Sum () + ", total spawned bad: " + numSpawnedBad.Sum ());
-		//Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));
+		Debug.Log ("alive good: "+NumAliveGood ().Sum()+": " + ArrayToString (NumAliveGood ()) + ", alive bad: "+NumAliveBad().Sum()+": " + ArrayToString (NumAliveBad ()));
 	}
 
 }
