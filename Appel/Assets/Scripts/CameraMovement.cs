@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour {
 
 	private float zoom = 0.0F;
 
-    private float shake = .6f; 
+    public static float shake = .1f; 
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +32,7 @@ public class CameraMovement : MonoBehaviour {
         transform.position += transform.forward * zoom * zoomspeed;
 
         cc++;
-        var alt = shake * (new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1)));
+        var alt = shake * (new Vector3(0.2f*Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1)));
         if (cc % 2 == 0) {
             transform.position += -altprev + alt;
             altprev = alt;
