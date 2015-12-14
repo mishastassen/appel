@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour {
         for (int i=0; i<n+2; i++) {
 			for (int j=0; j<n+2; j++) {
 				matrix [i, j] = Instantiate<Text> (cell);
-<<<<<<< HEAD
                 matrix[i, j].fontSize = (int)(Screen.width / 50.0f);
                 matrix[i, j].alignment = TextAnchor.MiddleCenter;
                 matrix[i, j].transform.SetParent(this.transform);
@@ -31,12 +30,10 @@ public class UIManager : MonoBehaviour {
                 //matrix[i, j].transform.position = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0);
                 matrix [i, j].transform.position = new Vector3 (j * spacing + Screen.width / 12.0f, (3-i) * yspacing + Screen.width / 20f, 0);
                 matrix[i,j].color = Color.white;
-=======
-				matrix [i, j].transform.SetParent(this.transform);//GetComponentInChildren<Image>().rectTransform); //(this.transform);
+				/*matrix [i, j].transform.SetParent(this.transform);//GetComponentInChildren<Image>().rectTransform); //(this.transform);
 				matrix[i,j].rectTransform.localScale = new Vector3(1,1,1);// = GameObject.Find ("Dummy").rectTransform.localScale;
 				matrix [i, j].transform.position = new Vector3 (j * 40+300, (3-i) * 40, 0);
-				matrix[i,j].color = Color.white;
->>>>>>> origin/master
+				matrix[i,j].color = Color.white;*/
 				matrix[i,j].text = "";
 
 			}
