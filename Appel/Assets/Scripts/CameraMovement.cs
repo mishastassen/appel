@@ -11,11 +11,14 @@ public class CameraMovement : MonoBehaviour {
 
 	private float zoom = 0.0F;
 
+    private float shake = .6f; 
+
 	// Use this for initialization
 	void Start () {
 
 	}
-	
+    int cc = 0;
+    Vector3 altprev = new Vector3(0, 0, 0); 
 	// Update is called once per frame
 	void Update () {
 		hstart -= hspeed * Input.GetAxis ("Mouse Y");
@@ -26,10 +29,19 @@ public class CameraMovement : MonoBehaviour {
 		//zoom
 
 		zoom += Input.GetAxis("Mouse ScrollWheel");
-		transform.position += transform.forward*zoom*zoomspeed; 
-		//transform.position += new Vector3 (0.0F, 0.0F, zoom*zoomspeed);
+        transform.position += transform.forward * zoom * zoomspeed;
 
-		if (zoom > 0){
+        cc++;
+        var alt = shake * (new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1)));
+        if (cc % 2 == 0) {
+            transform.position += -altprev + alt;
+            altprev = alt;
+        }
+        //transform.position += new Vector3 (0.0F, 0.0F, zoom*zoomspeed);
+
+         shake *= .99f;
+
+        if (zoom > 0){
 			if (zoom > 0.01f)
 				zoom *= 0.90f;
 			else
