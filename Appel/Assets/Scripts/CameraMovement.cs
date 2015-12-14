@@ -2,9 +2,9 @@
 using System.Collections;
 
 public class CameraMovement : MonoBehaviour {
-	public float hspeed = 5.0F;
-	public float vspeed = 5.0F;
-	public float zoomspeed = 10.0F;
+	public float hspeed = 50.0F;
+	public float vspeed = 50.0F;
+	public float zoomspeed = 3.0F;
 
 	private float hstart = 0.0F;
 	private float vstart = 0.0F; 

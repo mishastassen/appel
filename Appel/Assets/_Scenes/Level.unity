@@ -537,7 +537,7 @@ Prefab:
     - target: {fileID: 2313418, guid: e271349afb0f04244b97949b83614fd1, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 16e44a157fc81f14e9b406ab5994e867, type: 2}
+      objectReference: {fileID: 2100000, guid: 991bef7be076db942a83ec6e8ea37b2c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e271349afb0f04244b97949b83614fd1, type: 2}
   m_IsPrefabParent: 0
@@ -637,7 +637,7 @@ Prefab:
     - target: {fileID: 2323520, guid: 4ddbf564396816f4283f7f199a40ce54, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 80c65722d157c914a911f729b7198e70, type: 2}
+      objectReference: {fileID: 2100000, guid: 7e929f29ecbf1654abe086f1c6d430e0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ddbf564396816f4283f7f199a40ce54, type: 2}
   m_IsPrefabParent: 0
@@ -998,7 +998,7 @@ Prefab:
     - target: {fileID: 2367214, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d57ec506dde8c3c47984327aa3545f83, type: 2}
+      objectReference: {fileID: 2100000, guid: 3743eb776699a5a45a206f4a0530ab10, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
   m_IsPrefabParent: 0
@@ -1360,6 +1360,10 @@ Prefab:
       propertyPath: m_Name
       value: Water Factory (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2313418, guid: e271349afb0f04244b97949b83614fd1, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 16e44a157fc81f14e9b406ab5994e867, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e271349afb0f04244b97949b83614fd1, type: 2}
   m_IsPrefabParent: 0
@@ -1377,6 +1381,7 @@ GameObject:
   - 81: {fileID: 1899715397}
   - 114: {fileID: 1899715402}
   - 114: {fileID: 1899715403}
+  - 82: {fileID: 1899715404}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1476,6 +1481,80 @@ MonoBehaviour:
   hspeed: 2
   vspeed: 2
   zoomspeed: 10
+--- !u!82 &1899715404
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1899715396}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 645bc0748bab7bb4fbf89de55803bddd, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1942520710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,7 +1615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
 --- !u!1001 &2016805183
 Prefab:
   m_ObjectHideFlags: 0
@@ -1592,6 +1671,10 @@ Prefab:
       propertyPath: m_Name
       value: Factory (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2323520, guid: 4ddbf564396816f4283f7f199a40ce54, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 80c65722d157c914a911f729b7198e70, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ddbf564396816f4283f7f199a40ce54, type: 2}
   m_IsPrefabParent: 0
@@ -1650,6 +1733,10 @@ Prefab:
       propertyPath: m_Name
       value: Air Factory (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2367214, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d57ec506dde8c3c47984327aa3545f83, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
   m_IsPrefabParent: 0

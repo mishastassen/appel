@@ -113,7 +113,7 @@ public class GoodController : MonoBehaviour {
 			}
 			GetComponent<ParticleSystem>().Play();
 			randomClip = Random.Range (0, soundarray.Length);
-			audio.PlayOneShot (soundarray[randomClip], 0.5F); // volume moet niet muziek overstemmen
+			audio.PlayOneShot (soundarray[randomClip], 0.02F); // volume moet niet muziek overstemmen
 			//Debug.Log ("randomClip value: " + randomClip);
 			// ??? Debug.Log("Array index: " + Array.IndexOf(soundarray, randomClip));
 
