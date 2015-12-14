@@ -111,8 +111,8 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 1, g: 0.9594321, b: 0.41176468, a: 1}
-  m_Intensity: 5.65
-  m_Range: 50
+  m_Intensity: 4.13
+  m_Range: 100
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 13888485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 13.78, z: 0.3}
+  m_LocalPosition: {x: -0.2, y: 18.8, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1168,6 +1168,7 @@ GameObject:
   - 124: {fileID: 1899715398}
   - 81: {fileID: 1899715397}
   - 114: {fileID: 1899715402}
+  - 114: {fileID: 1899715403}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1253,6 +1254,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e469b23e88f359428b19ce70d15d855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1899715403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1899715396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d52dc3bfb26a5248b1bd6349ca2ba0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hspeed: 2
+  vspeed: 2
 --- !u!1 &1942520710
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,27 +1403,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -19.93
+      value: -16.34
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.7069846
+      value: -0.00000011518238
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7072292
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.7069844
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.70722896
+      value: 0.000000115222264
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 477092, guid: 60a3578b92d797e4493bc55cda057df1, type: 2}
       propertyPath: m_LocalScale.x
