@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraMovement : MonoBehaviour {
 	public float hspeed = 5.0F;
 	public float vspeed = 5.0F;
-	public float zoomspeed = 2;
+	public float zoomspeed = 10.0F;
 
 	private float hstart = 0.0F;
 	private float vstart = 0.0F; 
@@ -24,19 +24,22 @@ public class CameraMovement : MonoBehaviour {
 		transform.eulerAngles = new Vector3 (hstart, vstart, 0.0F);
 
 		//zoom
-		if (Input.GetKey ("Up"))
-			transform.position += (0.0F,0.0F,100);
-		if (Input.GetKeyDown ("Down"))
-			zoom -= zoomspeed;
 
-		/*
 		zoom += Input.GetAxis("Mouse ScrollWheel");
-		transform.position += new Vector3 (0.0F, 0.0F, zoom*zoomspeed);
+		transform.position += transform.forward*zoom*zoomspeed; 
+		//transform.position += new Vector3 (0.0F, 0.0F, zoom*zoomspeed);
 
-		if (Mathf.Abs(zoom) > 0.1f)
-			 *= 0.9f;
-		else
-			zoom = 0f;
-		*/
+		if (zoom > 0){
+			if (zoom > 0.01f)
+				zoom *= 0.90f;
+			else
+				zoom = 0f;
+		}
+		else{ // if zoom < 0
+			if (zoom < -0.01f)
+				zoom *= 0.90f; // divide by?
+			else
+				zoom = 0f;
+		}
 	}
 }

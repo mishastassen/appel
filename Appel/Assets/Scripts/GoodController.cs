@@ -95,7 +95,7 @@ public class GoodController : MonoBehaviour {
 
 			Rigidbody rb2 = looser.GetComponent<Rigidbody>();
 			rb2.constraints = RigidbodyConstraints.None;
-			rb2.AddForce (400*Vector3.up); // oude waarde: 200
+			rb2.AddForce (400*Vector3.up); // oude waarde: 200, daarna 400
 			rb2.AddTorque(new Vector3(Random.Range(25,40),Random.Range(25,40),Random.Range(25,40)));
 			if(this.gameObject==looser) {
 				alive=false;
