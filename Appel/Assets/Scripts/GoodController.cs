@@ -95,7 +95,7 @@ public class GoodController : MonoBehaviour {
 
 			Rigidbody rb2 = looser.GetComponent<Rigidbody>();
 			rb2.constraints = RigidbodyConstraints.None;
-			rb2.AddForce (200*Vector3.up);
+			rb2.AddForce (400*Vector3.up); // oude waarde: 200
 			rb2.AddTorque(new Vector3(Random.Range(25,40),Random.Range(25,40),Random.Range(25,40)));
 			if(this.gameObject==looser) {
 				alive=false;
@@ -113,7 +113,7 @@ public class GoodController : MonoBehaviour {
 			}
 			GetComponent<ParticleSystem>().Play();
 			randomClip = Random.Range (0, soundarray.Length);
-			audio.PlayOneShot (soundarray[randomClip], 1.0F);
+			audio.PlayOneShot (soundarray[randomClip], 0.5F); // volume moet niet muziek overstemmen
 			//Debug.Log ("randomClip value: " + randomClip);
 			// ??? Debug.Log("Array index: " + Array.IndexOf(soundarray, randomClip));
 

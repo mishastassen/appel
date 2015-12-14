@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-
 public class Matrix
 {
     public int n;
@@ -29,6 +28,22 @@ public class Matrix
         return res;
     }
 
+    static private float minPossible = -2.5f;
+    static private float maxPossible = 0;
+
+    public float GetMatrix(int hardness, int hardnesscount = 5)
+    {
+        return GetMatrix((float)minPossible + ((float)(hardness - 1)) / ((float)(hardnesscount)) * (float)(maxPossible - minPossible),
+                         (float)minPossible + ((float)(hardness)) / ((float)(hardnesscount)) * (float)(maxPossible - minPossible));
+    }
+
+    public float GetMatrix(float from, float to)
+    {
+        float ret = from - 1;
+        while (ret < from || ret > to)
+            ret = InitMatrix();
+        return ret;
+    }
     public float InitMatrix()
     {
         float[,] imat;
@@ -71,6 +86,7 @@ public class Matrix
             }*/
             ret = imat[0, 0];
         } while (ret >= 0 || CalcDeterminant() == 0 || (imat[0, 1] < 0.01 || imat[0, 2] < 0.01 || imat[0, 3] < 0.01 || imat[1, 0] < 0.01 || imat[2, 0] < 0.01 || imat[3, 0] < 0.01));
+        //Console.WriteLine(ret);
         return ret;
     }
 
