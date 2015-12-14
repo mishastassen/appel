@@ -6,7 +6,9 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
-	private int numUnits=3;
+    public AudioSource audio;
+
+    private int numUnits=3;
 	private int maxCountUnits = 800;
 	private int criticalMinimum = 10;
 	private int criticalDifference = 100;
@@ -129,6 +131,9 @@ public class GameManager : MonoBehaviour {
 		Vector3 startPos = new Vector3 (Screen.width / 2, 2*Screen.height, 0);
 		Vector3 endPos = new Vector3 (Screen.width / 2, Screen.height/2, 0);
 		if (!gameDone) {
+            audio.Stop();
+            
+            audio.PlayOneShot(winnerclip); 
 			gameDone = true;
 			levelNumber++;
 			victoryTime = Time.time;
@@ -147,10 +152,15 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown ("space"))
 			Application.LoadLevel (1);
 	}
-	
-	// Use this for initialization
-	void Start () {
-		numSpawnedGood = new int[numUnits];
+
+    public AudioClip musicsound;
+    public AudioClip winnerclip;
+    // Use this for initialization
+    void Start ()
+    {
+        audio = GetComponentInChildren<AudioSource>();
+        audio.PlayOneShot(musicsound); 
+        numSpawnedGood = new int[numUnits];
 		numSpawnedBad = new int[numUnits];
 		numKilledGood = new int[numUnits];
 		numKilledBad = new int[numUnits];
