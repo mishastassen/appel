@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour {
 			endPos.y = nextY;
 			victory.transform.position = endPos;//Vector3.Lerp (startPos, endPos, (Time.time-victoryTime) / 1.5f);
 
-			if (Time.time > victoryTime + 4)
+			if (Time.time > victoryTime + 5)
 				Application.LoadLevel (1);
 
 		}
@@ -184,23 +184,18 @@ public class GameManager : MonoBehaviour {
 		if (Time.time - timeLastSpawn > 0.2 && IsEnoughRoomOnBattleField()) {
 			timeLastSpawn = Time.time;
 			int goodIndex = -1, badIndex = -1;
-			/* Change back
 			if(NumAliveGood ().Sum () > 10 || NumAliveBad ().Sum () <50) {
 				goodIndex=GetNeededUnit(NumAliveGood(),offense);
 				Instantiate(offenseUnit[goodIndex],spawnGood[goodIndex].position,Quaternion.identity);
 				numSpawnedGood[goodIndex]++;
 			}
-			//*/
 
-			// CHANGE BACK
-			//*
 			if(NumAliveBad ().Sum () > 10 || NumAliveGood ().Sum () <50) {
 				badIndex=GetNeededUnit(NumAliveBad(),defense);
 				Instantiate (defenseUnit[badIndex],spawnBad[badIndex].position,Quaternion.identity);
 				numSpawnedBad[badIndex]++;
 			}
-			//*/
-			
+
 			//Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
 			//spawnsGood+=""+goodIndex;
 			//spawnsBad+=""+badIndex;
