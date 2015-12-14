@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour {
 
 	private float zoom = 0.0F;
 
-    private float shake = .6f; 
+	private float shake = 0.0f; //.6f; 
 
 	// Use this for initialization
 	void Start () {
