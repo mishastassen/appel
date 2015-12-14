@@ -93,8 +93,8 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 		for (int i=0; i<n; i++) {
-			matrix[i+1,0].text=MakeString(GM.offense[i]);
-			matrix[0,i+1].text=MakeString(GM.defense[i]);
+			matrix[i+1,0].text=""+GM.offense[i];
+			matrix[0,i+1].text=""+GM.defense[i];
 		}
 		for(int i=0;i<n;i++) {
 			matrix[i+1,n+1].text=MakeString(GM.expOffense[i]);
