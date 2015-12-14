@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 170139376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -587, y: -319, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1817527564}
@@ -339,7 +339,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000012398, y: -105}
+  m_AnchoredPosition: {x: 0.000012398, y: -47.5}
   m_SizeDelta: {x: 286, y: 66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &700973520
@@ -544,13 +544,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 964731455}
-  - {fileID: 1289924323}
   m_Father: {fileID: 1817527564}
   m_RootOrder: 3
   m_AnchorMin: {x: 0.08375, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.7466754}
-  m_AnchoredPosition: {x: 166.5, y: -59.439}
-  m_SizeDelta: {x: -47, y: -53}
+  m_AnchoredPosition: {x: 166.5, y: -4.4}
+  m_SizeDelta: {x: -47, y: -23.281021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1253733025
 MonoBehaviour:
@@ -675,11 +674,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1289924322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -337.24, y: -224, z: 1063}
+  m_LocalPosition: {x: -163, y: -57, z: 288}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1253733024}
-  m_RootOrder: 1
+  m_Father: {fileID: 1817527564}
+  m_RootOrder: 6
 --- !u!199 &1289924324
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -2477,6 +2476,7 @@ RectTransform:
   - {fileID: 1253733024}
   - {fileID: 2134552456}
   - {fileID: 1684448101}
+  - {fileID: 1289924323}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
@@ -2715,7 +2715,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -183}
+  m_AnchoredPosition: {x: 0, y: -125.5}
   m_SizeDelta: {x: 136, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!50 &2134552457
