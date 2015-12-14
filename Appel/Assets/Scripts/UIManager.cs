@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour {
                 // matrix [i, j].rectTransform.SetParent (this.transform);
                 // matrix[i, j].rectTransform.anchoredPosition = new Vector2(0f, 1f);
                 // matrix[i, j].rectTransform.position = new Vector3(j * 40 + 400, (3 - i) * 40 + 40, 0);
-                Debug.Log(Screen.width); 
+                //Debug.Log(Screen.width); 
                 //matrix[i, j].transform.position = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0);
                 matrix [i, j].transform.position = new Vector3 (j * spacing + Screen.width / 11.0f, (3-i) * yspacing + Screen.width / 20f, 0);
                 matrix[i,j].color = Color.white;

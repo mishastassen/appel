@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,9 @@ public class GameManager : MonoBehaviour {
 	private int criticalMinimum = 10;
 	private int criticalDifference = 100;
 	private bool gameDone;
+	private float victoryTime;
+	private static int levelNumber = 1;
+	public Text victory;
 
 	public List<GameObject> offenseUnit = new List<GameObject>();
 	public List<GameObject> defenseUnit = new List<GameObject>();
@@ -115,6 +119,35 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	void ShowGameOver() {
+		gameDone = true;
+		levelNumber = 1;
+		Application.LoadLevel (3);
+	}
+	
+	void ShowVictory() {
+		Vector3 startPos = new Vector3 (Screen.width / 2, 2*Screen.height, 0);
+		Vector3 endPos = new Vector3 (Screen.width / 2, Screen.height/2, 0);
+		if (!gameDone) {
+			gameDone = true;
+			levelNumber++;
+			victoryTime = Time.time;
+			victory.transform.position = startPos;
+			victory.enabled = true;
+		} else {
+			float elapsed = (Time.time-victoryTime)/1.5f;
+			float nextY = Screen.height/2 + Mathf.Max (0f,(1.5f-elapsed))*Mathf.Max (0f,(1.5f-elapsed))*Mathf.Max (0f,(1.5f-elapsed))*(Screen.height/2)*Mathf.Cos(4*elapsed);
+			endPos.y = nextY;
+			victory.transform.position = endPos;//Vector3.Lerp (startPos, endPos, (Time.time-victoryTime) / 1.5f);
+
+			if (Time.time > victoryTime + 4)
+				Application.LoadLevel (1);
+
+		}
+		if (Input.GetKeyDown ("space"))
+			Application.LoadLevel (1);
+	}
+	
 	// Use this for initialization
 	void Start () {
 		numSpawnedGood = new int[numUnits];
@@ -123,7 +156,7 @@ public class GameManager : MonoBehaviour {
 		numKilledBad = new int[numUnits];
 
 		mat = new Matrix (numUnits);
-		mat.InitMatrix ();
+		mat.GetMatrix (Mathf.Min (5,levelNumber));
 		offense = new int[numUnits];
 		defense = new int[numUnits];
 		expOffense = new int[numUnits];
@@ -134,39 +167,40 @@ public class GameManager : MonoBehaviour {
 		}
 		UpdateExpectations ();
 		gameDone = false;
-	}
-
-	void ShowGameOver() {
-		gameDone = true;
-		Application.LoadLevel (3);
-	}
-
-	void ShowVictory() {
-		gameDone = true;
-		GameInfo.levelNumber++;
+		victory.enabled = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (gameDone)
-			return;
+		if (gameDone) {
+			if(NumAliveGood ().Sum ()>0)
+				ShowVictory();
+			else
+				ShowGameOver();
+		}
 		UpdateExpectations ();
 		UpdateComputerVector ();
 		if((NumAliveGood ().Sum () > 10 || NumAliveBad ().Sum () <50)&&(NumAliveBad ().Sum () > 10 || NumAliveGood ().Sum () <50))
 		if (Time.time - timeLastSpawn > 0.2 && IsEnoughRoomOnBattleField()) {
 			timeLastSpawn = Time.time;
 			int goodIndex = -1, badIndex = -1;
+			/* Change back
 			if(NumAliveGood ().Sum () > 10 || NumAliveBad ().Sum () <50) {
 				goodIndex=GetNeededUnit(NumAliveGood(),offense);
 				Instantiate(offenseUnit[goodIndex],spawnGood[goodIndex].position,Quaternion.identity);
 				numSpawnedGood[goodIndex]++;
 			}
+			//*/
 
+			// CHANGE BACK
+			//*
 			if(NumAliveBad ().Sum () > 10 || NumAliveGood ().Sum () <50) {
 				badIndex=GetNeededUnit(NumAliveBad(),defense);
 				Instantiate (defenseUnit[badIndex],spawnBad[badIndex].position,Quaternion.identity);
 				numSpawnedBad[badIndex]++;
 			}
+			//*/
+			
 			//Debug.Log ("goodIndex: "+goodIndex+", badIndex: "+badIndex);
 			//spawnsGood+=""+goodIndex;
 			//spawnsBad+=""+badIndex;
