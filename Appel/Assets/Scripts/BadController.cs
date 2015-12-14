@@ -39,8 +39,6 @@ public class BadController : MonoBehaviour {
 			rb.velocity = rb.velocity.normalized * maxSpeed;
 		transform.rotation = Quaternion.LookRotation(rb.velocity);
 		transform.Rotate (0, 90, 0);
-		if(col==0)
-			transform.Rotate (0, 180, 0);
 		rb.AddForce (speed*diff);
 		
 	}
