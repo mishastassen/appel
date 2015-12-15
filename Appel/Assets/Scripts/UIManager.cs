@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
 	private Text[,] matrix;
 	private int n;
 	private GameManager GM;
+	bool hasDot;
 	
 
 	// System.Random: 1010
@@ -48,33 +49,23 @@ public class UIManager : MonoBehaviour {
 		return res;
 	}
 
-	private string MakeString1(float a) {
-		String res = "";
-		if (a < 0) {
-			a*=-1;
-			res+="-";
-		}
-		int b = (int)(a + 0.5);
-		return "" + b;//res + (a / 100) + "." + ((a / 10) % 10);// + (a % 10);
+	private string ProbToString(float a) {
+		return ""+(int)(a+0.5);
 	}
 
-	private string MakeString2(float a) {
-		if(a>0)
-			a+=0.5f;
-		else
-			a-=0.5f;
-		return MakeString ((int)a);
+	private string ExpToString(float a) {
+		String res = "";
+		if (a >= 0) {
+			res += "+";
+		} else {
+			res+="-";
+			a*=-1;
+		}
+		int b = (int)(a + 5);
+		res+=(b/100)+"."+((b/10)%10);
+		return res;
 	}
 
-	private string MakeString(int a) {
-		String res = "";
-		if (a < 0) {
-			a*=-1;
-			res+="-";
-		}
-		a += 5; // voor afronding op 1 decimaal
-		return res + (a / 100) + "." + ((a / 10) % 10);// + (a % 10);
-	}
 
 	void CheckSliders() {
 		int indexChanged = -1;
@@ -107,6 +98,8 @@ public class UIManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		int maxlevel = PlayerPrefs.GetInt("maxlevel",1);
+		hasDot = maxlevel >= 3;
 		n = 3;
 		InitMatrix ();
 		GM = GameObject.Find ("GameManager").GetComponent<GameManager> ();
@@ -119,13 +112,16 @@ public class UIManager : MonoBehaviour {
 		String eraf = "asdf";
 		// process keyboard input
 		for(int i=0;i<n;i++) {
-			if (Input.GetKeyDown (""+erbij[i]) && getSum (GM.offense) <=99) {
-				GM.offense[i]+=1;
+			if (Input.GetKeyDown (""+erbij[i]) /*&& getSum (GM.offense) <=99*/) {
+				//GM.offense[i]+=1;
+				sliders[i].value=Mathf.Min(100, sliders[i].value+1); // quick fix
 			}
-			if (Input.GetKeyDown (""+eraf[i]) && GM.offense[i]>=1) {
-				GM.offense[i]-=1;
+			if (Input.GetKeyDown (""+eraf[i]) /*&& GM.offense[i]>=1*/) {
+				//GM.offense[i]-=1;
+				sliders[i].value=Mathf.Max(0, sliders[i].value-1); // quick fix
 			}
 		}
+		CheckSliders (); // quick fix
 
 		// should pause it
 		if (Input.GetKeyDown ("p")) {
@@ -138,7 +134,7 @@ public class UIManager : MonoBehaviour {
 		// update whole table
 		for (int i=0; i<n; i++) {
 			for (int j=0; j<n; j++) {
-				matrix [i+1, j+1].text = "" + GM.mat.mat [i, j];
+				matrix [i+1, j+1].text = (GM.mat.mat [i, j]>=0?"+":"") + GM.mat.mat [i, j];
 
 				float ratio = (GM.mat.mat [i, j]+5.01f)/10.1f; // .01 en .1, anders misschien erbuiten
 				if(ratio<0.0f||ratio>1.0f)
@@ -147,21 +143,33 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 		for (int i=0; i<n; i++) {
-			matrix[i+1,0].text=MakeString1(GM.offense[i]);
-			matrix[0,i+1].text=MakeString1(GM.defense[i]);
+			matrix[i+1,0].text=ProbToString(GM.offense[i]);
+			matrix[0,i+1].text=ProbToString(GM.defense[i]);
 		}
 		for(int i=0;i<n;i++) {
-			matrix[i+1,n+1].text=MakeString2(GM.expOffense[i]);
-			matrix[n+1,i+1].text=MakeString2(GM.expDefense[i]);
-			float ratio = (GM.mat.mat [i, n-1]/100.0f+5.01f)/10.1f; // anders misschien erbuiten
-			if(ratio<0.0f||ratio>1.0f)
-				Debug.Log ("ratio: "+ratio);
-			matrix[i+1,n+1].color = new Vector4(1-ratio,ratio,0,1); 
+			if(hasDot) {
+				matrix[i+1,n+1].text=ExpToString(GM.expOffense[i]);
+				matrix[n+1,i+1].text=ExpToString(GM.expDefense[i]);
+				float ratio = (GM.expOffense[i]/100.0f+5.01f)/10.1f; // anders misschien erbuiten
+				if(ratio<0.0f||ratio>1.0f)
+					Debug.Log ("ratio: "+ratio);
+				matrix[i+1,n+1].color = new Vector4(1-ratio,ratio,0,1); 
 
-			ratio = (GM.mat.mat [n-1, i]/100.0f+5.01f)/10.1f; // anders misschien erbuiten
-			if(ratio<0.0f||ratio>1.0f)
-				Debug.Log ("ratio: "+ratio);
-			matrix[n+1,i+1].color = new Vector4(1-ratio,ratio,0,1); 
+				/*
+				ColorBlock colors = sliders[i].colors;
+				colors.normalColor = new Vector4(1-ratio,ratio,0,1);
+				sliders[i].colors = colors;
+				*/
+
+				ratio = (GM.expDefense[i]/100.0f+5.01f)/10.1f; // anders misschien erbuiten
+				if(ratio<0.0f||ratio>1.0f)
+					Debug.Log ("ratio: "+ratio);
+				matrix[n+1,i+1].color = new Vector4(1-ratio,ratio,0,1);
+			}
+			else {
+				matrix[i+1,n+1].text="?";
+				matrix[n+1,i+1].text="?";
+			}
 		}
 	}
 }

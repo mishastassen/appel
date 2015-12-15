@@ -14,8 +14,9 @@ public class GameManager : MonoBehaviour {
 	private int criticalDifference = 100;
 	private bool gameDone;
 	private float victoryTime;
-	private static int levelNumber = 1;
+	public static int levelNumber = 1;
 	public Text victory;
+	public Text Level;
 
 	public List<GameObject> offenseUnit = new List<GameObject>();
 	public List<GameObject> defenseUnit = new List<GameObject>();
@@ -101,22 +102,21 @@ public class GameManager : MonoBehaviour {
 	
 	
 	void UpdateComputerVector() {
-		if (Time.time > lastBigComputerUpdate + 4) {
-			if(Time.time > lastBigComputerUpdate + 6)
-				lastBigComputerUpdate = Time.time+2*Random.value;
-			if(Time.time > lastMiniComputerUpdate+0.1f) {
-				lastMiniComputerUpdate = Time.time;
-				int best = 0, worst = -1;
-				for (int i=0; i<numUnits; i++) {
-					if (expDefense [i] < expDefense [best])
-						best = i;
-					if (worst == -1 || (expDefense [i] > expDefense [worst] && defense [i] > 0))
-						worst = i;
-				}
-				if (defense [worst] > 0) {
-					defense [best]+=1;
-					defense [worst]-=1;
-				}
+		if (Time.time > lastBigComputerUpdate + 4)
+			lastBigComputerUpdate = Time.time+Random.value;
+		if(lastMiniComputerUpdate+0.1f < Time.time &&
+		   Time.time < lastBigComputerUpdate + 1) {
+			lastMiniComputerUpdate = Time.time;
+			int best = 0, worst = -1;
+			for (int i=0; i<numUnits; i++) {
+				if (expDefense [i] < expDefense [best])
+					best = i;
+				if (worst == -1 || (expDefense [i] > expDefense [worst] && defense [i] > 0))
+					worst = i;
+			}
+			if (defense [worst] > 0) {
+				defense [best]+=1;
+				defense [worst]-=1;
 			}
 		}
 	}
@@ -135,7 +135,13 @@ public class GameManager : MonoBehaviour {
             
             audio.PlayOneShot(winnerclip); 
 			gameDone = true;
-			levelNumber++;
+			levelNumber = Mathf.Min(levelNumber+1,5);
+			int maxlevel = PlayerPrefs.GetInt("maxlevel",1);
+			if(levelNumber>maxlevel) {
+				PlayerPrefs.SetInt("maxlevel",levelNumber);
+				if(levelNumber==3)
+					victory.text = "Victory\nYou unlocked the dot product!";
+			}
 			victoryTime = Time.time;
 			victory.transform.position = startPos;
 			victory.enabled = true;
@@ -178,6 +184,7 @@ public class GameManager : MonoBehaviour {
 		UpdateExpectations ();
 		gameDone = false;
 		victory.enabled = false;
+		Level.text = "Level: " + levelNumber;
 	}
 
 	// Update is called once per frame

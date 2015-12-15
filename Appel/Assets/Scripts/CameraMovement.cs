@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraMovement : MonoBehaviour {
 	public float hspeed = 50.0F;
 	public float vspeed = 50.0F;
-	public float zoomspeed = 3.0F;
+	private float zoomspeed = 3.0F;
 
 	private float hstart = 0.0F;
 	private float vstart = 0.0F; 
@@ -21,8 +21,10 @@ public class CameraMovement : MonoBehaviour {
     Vector3 altprev = new Vector3(0, 0, 0); 
 	// Update is called once per frame
 	void Update () {
-		hstart -= hspeed * Input.GetAxis ("Mouse Y");
-		vstart += vspeed * Input.GetAxis ("Mouse X");
+		if (Input.GetMouseButton (1)) {
+			hstart -= hspeed * Input.GetAxis ("Mouse Y");
+			vstart += vspeed * Input.GetAxis ("Mouse X");
+		}
 
 		transform.eulerAngles = new Vector3 (hstart, vstart, 0.0F);
 
