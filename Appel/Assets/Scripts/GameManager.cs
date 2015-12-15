@@ -30,24 +30,24 @@ public class GameManager : MonoBehaviour {
 	public int[] numKilledBad;
 
 	public Matrix mat;
-	public int[] offense;
-	public int[] defense;
+	public float[] offense;
+	public float[] defense;
 
-	public int[] expOffense;
-	public int[] expDefense;
+	public float[] expOffense;
+	public float[] expDefense;
 
 	private float lastBigComputerUpdate, lastMiniComputerUpdate;
 
 	private string spawnsGood = "", spawnsBad="";
 
 	// to have to right ratio for the units on battlefield as the players command
-	int GetNeededUnit(int[] current, int[] desired) {
+	int GetNeededUnit(int[] current, float[] desired) {
 		int bestIndex = 0;
 		float lowestFactor = current [0] / (desired [0]+0.001f);
 		for (int i=1; i<numUnits; i++) {
 			if(lowestFactor > current [i] / (desired [i]+0.001f)) {
 				bestIndex=i;
-				lowestFactor = current [i] / (desired [i]+1e-6f);
+				lowestFactor = current [i] / (desired [i]+0.001f);
 			}
 		}
 		return bestIndex;
@@ -114,8 +114,8 @@ public class GameManager : MonoBehaviour {
 						worst = i;
 				}
 				if (defense [worst] > 0) {
-					defense [best]++;
-					defense [worst]--;
+					defense [best]+=1;
+					defense [worst]-=1;
 				}
 			}
 		}
@@ -167,13 +167,13 @@ public class GameManager : MonoBehaviour {
 
 		mat = new Matrix (numUnits);
 		mat.GetMatrix (Mathf.Min (5,levelNumber));
-		offense = new int[numUnits];
-		defense = new int[numUnits];
-		expOffense = new int[numUnits];
-		expDefense = new int[numUnits];
+		offense = new float[numUnits];
+		defense = new float[numUnits];
+		expOffense = new float[numUnits];
+		expDefense = new float[numUnits];
 		for (int i=0; i<100; i++) {
-			offense [i % numUnits]++;
-			defense [i % numUnits]++;
+			offense [i % numUnits]+=1;
+			defense [i % numUnits]+=1;
 		}
 		UpdateExpectations ();
 		gameDone = false;
